@@ -1,31 +1,24 @@
 terraform {
   required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "4.6.0"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.27"
     }
   }
-}
-provider "google" {
-  credentials = "${file("serivice-account.json)}"
-  project     = "skilful-sensor-335405"
-  region      = "us-central1"
-  zone    = "us-central1-c"
-}
-resource "google_compute_instance" "default" {
-  name         = "test"
-  machine_type = "f1-micro"
-  zone         = "us-central1-a"
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-9"
-    }
-  }
-  network_interface {
-    network = "default"
 
-    access_config {
-      // Ephemeral public IP
-    }
+  required_version = ">= 0.14.9"
+}
+
+provider "aws" {
+  profile = "default"
+  region  = "us-east-1"
+}
+
+resource "aws_instance" "app_server" {
+  ami           ="ami-0e472ba40eb589f49"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "ExampleAppServerInstancebykranthi"
   }
 }
