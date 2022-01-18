@@ -1,4 +1,10 @@
 terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/gcp"
+      version = "~> 4.6.0"
+    }
+  }
 provider "google" {
   credentials = "${file("serivice-account.json)}"
   project     = "skilful-sensor-335405"
