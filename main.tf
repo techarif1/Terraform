@@ -1,14 +1,4 @@
 terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.27"
-    }
-  }
-
-  required_version = ">= 1.1.0"
-}
-
 provider "google" {
   credentials = "${file("serivice-account.json)}"
   project     = "skilful-sensor-335405"
