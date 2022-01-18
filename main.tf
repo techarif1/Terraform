@@ -9,16 +9,27 @@ terraform {
   required_version = ">= 1.1.0"
 }
 
-provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
+provider "google" {
+  credentials = "${file("serivice-account.json)}"
+  project     = "skilful-sensor-335405"
+  region      = "us-central1"
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-830c94e3"
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "18JAN2022"
+resource "google_compute_instance" "default" {
+  name         = "arif18jan"
+  machine_type = "f1-micro"
+  zone         = "us-central1-a"
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-9"
+    }
   }
+   network_interface {
+    network = "default"
+
+    access_config {
+      // Ephemeral public IP
+    }
+  }
+ } 
 }
